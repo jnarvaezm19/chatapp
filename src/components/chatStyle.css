@@ -1,0 +1,115 @@
+.chatBox{
+    max-height: 450px;
+    min-height: 450px;
+    max-width: 300px;
+    min-width: 300px;
+    border: solid 1px #ccc;
+    border-radius: 0.5em;
+    position: absolute;
+    bottom: 1px;
+    right: 10px;
+    overflow: hidden;
+}
+
+.chat{
+    height: 418px;
+    width: 100%;
+    border: solid 1px #ccc;
+    border-radius: 0.5em 0.5em 0 0;
+    margin: 0;
+    padding: 0;
+    overflow: scroll;
+    overflow-x: hidden
+}
+.chatInput{
+    width: 100%;
+    display: grid;
+    padding: 0;
+}
+.chatInput input{
+    border-radius: 0 0 0 0.5em;
+    border: solid 1px #ccc;
+    margin: 0;
+    padding: .5em;
+    width: 80%;
+}
+.chatInput button{
+    border-radius: 0 0 0.5em 0;
+    border: solid 1px #127ff7;
+    right: 0;
+    padding: .5em;
+    width: 14.9%;
+    background: #127ff7;
+    color: #fff;
+}
+
+.dv-message, .dv-message-send{
+    position: relative;
+    display: flex;
+    vertical-align: top;
+    align-content: center;
+    align-items: center;
+    margin: 0.5em;
+}
+.dv-message-send{
+    text-align: right;
+}
+.img-message, .img-message-send{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background: rgb(214,189,39);
+    background: linear-gradient(90deg, rgba(214,189,39,1) 10%, rgba(255,0,48,1) 53%, rgba(64,141,198,1) 88%, rgba(18,127,247,1) 100%);
+}
+.img-message-send{
+    position: absolute;
+    right: 0;
+    background: linear-gradient(90deg, rgb(69, 114, 211) 10%, rgb(38, 0, 255) 53%, rgba(64,141,198,1) 88%, rgba(18,127,247,1) 100%);
+}
+.img-message::after, .img-message-send::after{
+    content: 'J';
+    color: #FFF;
+    font-size: 1.5em;
+    margin: 0.5em;
+}
+.img-message-send::after{
+    content: 'I';
+    padding: 0.25em !important;
+}
+.lbl-message, .lbl-message-send{
+    position: absolute;
+    font-weight: bold;
+    font-size: 0.5em;
+    top: 8px;
+    left: 50px;
+}
+.lbl-message-send{
+    left: 0;
+    right: 50px;
+}
+.text-message{
+    margin-left: 0.5em;
+}
+.text-message-send{
+    text-align: right;
+    margin-right: 3em;
+    width: 235px;
+}
+.lbl-date-message, .lbl-date-message-send{
+    width: 90%;
+    font-size: 0.5em;
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+}
+.lbl-date-message{
+    text-align: left;
+    left: 50px;
+}
+.lbl-date-message-send{
+    padding-top: 0.5em;
+    right: 50px;
+}
+hr{
+    width: 95%;
+}
