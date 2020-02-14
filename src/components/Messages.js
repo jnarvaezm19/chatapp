@@ -3,6 +3,7 @@ import React from 'react'
 const Messages = (props) => {
     const {send, userActual, message, date} = props
     let styleClass = '-message'
+    
     if(send)
         styleClass = `${styleClass}-send`
 

@@ -1,5 +1,5 @@
+
 .chatBox{
-    max-height: 450px;
     min-height: 450px;
     max-width: 300px;
     min-width: 300px;
@@ -8,18 +8,28 @@
     position: absolute;
     bottom: 1px;
     right: 10px;
-    overflow: hidden;
+    overflow: auto;
+    overflow-x: hidden;
 }
-
+.dv-user{
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    border: solid 1px linear-gradient(90deg, #7474BF 7%, #348AC7 32%);
+    background: linear-gradient(90deg, #7474BF 7%, #348AC7 32%);
+}
+.dv-user h4{
+    padding: 0.5em;
+    margin: 0;
+}
 .chat{
     height: 418px;
     width: 100%;
     border: solid 1px #ccc;
-    border-radius: 0.5em 0.5em 0 0;
     margin: 0;
     padding: 0;
-    overflow: scroll;
-    overflow-x: hidden
+    overflow: auto;
+    overflow-x: hidden;
 }
 .chatInput{
     width: 100%;

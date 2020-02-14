@@ -19,9 +19,11 @@ const ChatBox = (props) => {
     const txtMessage = useRef()
     const chatFocused = useRef()
     const [date, setDate] = useState('')
+    const box = useRef()
 
     useEffect(() => {
         document.addEventListener('focus', handleFocus)
+
         return () =>{
             document.removeEventListener('focus',handleFocus)
         }
@@ -37,9 +39,11 @@ const ChatBox = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setDate(new Date().toDateString())
-        setMessages(messages => [...messages, message])
-        setMessage({text: ''})
+        if(message.text !== ''){
+            setDate(new Date().toDateString())
+            setMessages(messages => [...messages, message])
+            setMessage({text: ''})
+        }
     }
     const handleChange = (e) => {
         e.preventDefault()
@@ -51,7 +55,10 @@ const ChatBox = (props) => {
     }
 
     return(
-        <div className="chatBox">
+        <div className="chatBox" ref={box}>
+            <div className="dv-user">
+                <h4> {userActual} </h4>
+            </div>
             <div className="chat"
                 onClick={handleFocus}
                 style={onFocus ? styleFocus : styleBlur}
