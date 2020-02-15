@@ -1,17 +1,11 @@
-import React, {useState, useEffect, useRef, useLayoutEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 //import EmojiPicker from 'emoji-picker-react';
 import Messages from './Messages'
 import './chatStyle.css'
 import io from "socket.io-client";
 
-const styleFocus = {
-    border: 'solid 1px #127ff7'
-}
-
-const styleBlur = {
-    border: 'solid 1px #CCC'
-}
-
+let styleChat={}
+let styleUser={}
 //declaracion de variable que consume el socket
 const socket = io("http://localhost:1337/");
 
@@ -20,10 +14,10 @@ const ChatBox = (props) => {
     const {userActual} = props
     //declaracion de useState
     const [message, setMessage] = useState([])
-    const [onFocus, setOnFocus] = useState(false)
     const [messages, setMessages] = useState([])
-    const [users, setUsers] = useState(0)
+    //const [users, setUsers] = useState(0)
     const [date, setDate] = useState('')
+    const [hideChat, setHideChat] = useState(false)
     //declaracion de refs
     const txtMessage = useRef()
     const chatFocused = useRef()
@@ -66,11 +60,6 @@ const ChatBox = (props) => {
         })
     }
 
-    //evento focus / blur
-    const handleFocus = () =>{
-        setOnFocus(true)
-    }
-
     //funcion para obtener la fecha actual formateada
     const getDateMessage = () => {
         let date2 = new Date()
@@ -83,45 +72,83 @@ const ChatBox = (props) => {
         let fecha = `${hour}:${min}:${seg} ${day}-${month}-${year}`
         setDate(fecha)
     }
-    
-    return(
-        <div className="chatBox" ref={box}>
-            <div className="dv-user">
-                <h4> {userActual} </h4>
-            </div>
-            <div className="chat"
-                onClick={handleFocus}
-                style={onFocus ? styleFocus : styleBlur}
-                ref={chatFocused}
-            >
-            {messages.map((msg,index) => (
-                <div key={index}>
-                    <Messages
-                        userMessage={msg.userM}
-                        userActual={userActual}
-                        message={msg.text}
-                        date={msg.date}
-                    />
-                </div>
-            ))
+
+    const handleHideChat = () => {
+        setHideChat(!hideChat)
+        if(hideChat){
+            styleChat = {
+                visibility: 'visible'
             }
+            styleUser={
+                transition: 'all 1s',
+                cursor: 'pointer'
+            }
+        }else{
+            styleChat ={
+                visibility: 'hidden',
+            }
+            styleUser={
+                position: 'absolute',
+                bottom: 0,
+                transition: '1s',
+                height: 'auto',
+                transition: 'all 1s',
+                cursor: 'pointer'
+            }
+        }
+        console.log(hideChat)
+    }
+
+    return(
+        <div className="chatBox" ref={box}
+        style={styleChat}
+        >
+            <div className="dv-user"
+                onClick={handleHideChat}
+                style={styleUser}
+            >
+                <p> 
+                    {userActual} 
+                    <span
+                        className="spanUserA"
+                    >
+                        {hideChat? '+':'-'}
+                    </span>
+                </p>
             </div>
-            <div className="chatInput">
-                <form
-                    onSubmit={handleSubmit}
+            <div>
+                <div className="chat"
+                    ref={chatFocused}
                 >
-                    <input
-                        type='text'
-                        name='message'
-                        value={message.text}
-                        onChange={handleChange}
-                        ref={txtMessage}
-                        placeholder='Type your message'
-                    />
-                    <button type='submit'>
-                        Send
-                    </button>
-                </form>
+                {messages.map((msg,index) => (
+                    <div key={index}>
+                        <Messages
+                            userMessage={msg.userM}
+                            userActual={userActual}
+                            message={msg.text}
+                            date={msg.date}
+                        />
+                    </div>
+                ))
+                }
+                </div>
+                <div className="chatInput">
+                    <form
+                        onSubmit={handleSubmit}
+                    >
+                        <input
+                            type='text'
+                            name='message'
+                            value={message.text}
+                            onChange={handleChange}
+                            ref={txtMessage}
+                            placeholder='Type your message'
+                        />
+                        <button type='submit'>
+                            Send
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     )

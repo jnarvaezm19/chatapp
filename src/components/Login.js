@@ -16,7 +16,7 @@ const Login = (props) => {
             <div className="contenedor">
                 <div className="box">
                     <div className="contenido">
-                        <h2>LOGIN</h2>
+                        <h5>Login</h5>
                         <form onSubmit={handleSubmit}>
                             <div className="dv-login">
                                 <p>Nickname</p>
@@ -32,7 +32,7 @@ const Login = (props) => {
                                     type='submit'
                                     className="btn-login"
                                 >
-                                    JOIN
+                                    Join
                                 </button>
                             </div>
                         </form>

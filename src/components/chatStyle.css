@@ -18,9 +18,10 @@
     color: #fff;
     border: solid 1px linear-gradient(90deg, #7474BF 7%, #348AC7 32%);
     background: linear-gradient(90deg, #7474BF 7%, #348AC7 32%);
+    cursor: pointer;
 }
 
-.dv-user h4{
+.dv-user p{
     padding: 0.5em;
     margin: 0;
 }
@@ -34,9 +35,12 @@
     overflow: auto;
     overflow-x: hidden;
 }
+form{
+    width: 100%;
+}
 .chatInput{
     width: 100%;
-    display: grid;
+    display: flex;
     padding: 0;
 }
 
@@ -53,7 +57,7 @@
     border: solid 1px #127ff7;
     right: 0;
     padding: .5em;
-    width: 14.9%;
+    width: 20%;
     background: #127ff7;
     color: #fff;
 }
@@ -64,7 +68,7 @@
     vertical-align: top;
     align-content: center;
     align-items: center;
-    margin: 0.5em;
+    margin: 0 0.5em;
 }
 
 .dv-message-send{
@@ -112,12 +116,14 @@
 
 .text-message{
     margin-left: 0.5em;
+    margin-top: 15px;
 }
 
 .text-message-send{
     text-align: right;
     margin-right: 3em;
     width: 235px;
+    margin-top: 15px;
 }
 
 .lbl-date-message, .lbl-date-message-send{
@@ -140,8 +146,21 @@
 
 hr{
     width: 95%;
+    margin: 0.5em auto;
 }
 
 svg{
     position: fixed;
+}
+.spanUserA{
+    position: absolute;
+    right: 15px;
+    font-size: 2em;
+    font-weight: bold;
+    top: -5px;
+}
+.dv-user{
+    visibility: visible !important;
+    z-index: 1000;
+    position: relative;
 }
