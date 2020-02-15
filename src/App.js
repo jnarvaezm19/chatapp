@@ -6,9 +6,11 @@ import Login from './components/Login'
 function App() {
 
   const [userActual, setUserActual] = useState('')
+
   const handleSubmit = (user) => {
     setUserActual(user)
   }
+  
   return (
     <div className="App">
       <div className="principal">

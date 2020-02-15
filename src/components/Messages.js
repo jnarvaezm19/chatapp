@@ -1,17 +1,21 @@
 import React from 'react'
 
 const Messages = (props) => {
-    const {send, userActual, message, date} = props
+    //destructuring a las props
+    const {userMessage, userActual, message, date} = props
+
+    //definimos el estilo de cada mensaje
     let styleClass = '-message'
     
-    if(send)
+    //verificamos la forma en que se mostrara el mensaje en pantalla
+    if(userActual === userMessage)
         styleClass = `${styleClass}-send`
-
+        
     return(
         <div>
             <div className={`dv${styleClass}`}>
                     <label className={`lbl${styleClass}`}>
-                        {userActual} (yo)
+                        {userMessage}
                     </label>
                     <div className={`img${styleClass}`}></div>
                     <p className={`text${styleClass}`}>

@@ -11,6 +11,7 @@
     overflow: auto;
     overflow-x: hidden;
 }
+
 .dv-user{
     height: 100%;
     width: 100%;
@@ -18,10 +19,12 @@
     border: solid 1px linear-gradient(90deg, #7474BF 7%, #348AC7 32%);
     background: linear-gradient(90deg, #7474BF 7%, #348AC7 32%);
 }
+
 .dv-user h4{
     padding: 0.5em;
     margin: 0;
 }
+
 .chat{
     height: 418px;
     width: 100%;
@@ -36,6 +39,7 @@
     display: grid;
     padding: 0;
 }
+
 .chatInput input{
     border-radius: 0 0 0 0.5em;
     border: solid 1px #ccc;
@@ -43,6 +47,7 @@
     padding: .5em;
     width: 80%;
 }
+
 .chatInput button{
     border-radius: 0 0 0.5em 0;
     border: solid 1px #127ff7;
@@ -61,9 +66,11 @@
     align-items: center;
     margin: 0.5em;
 }
+
 .dv-message-send{
     text-align: right;
 }
+
 .img-message, .img-message-send{
     height: 40px;
     width: 40px;
@@ -71,21 +78,25 @@
     background: rgb(214,189,39);
     background: linear-gradient(90deg, rgba(214,189,39,1) 10%, rgba(255,0,48,1) 53%, rgba(64,141,198,1) 88%, rgba(18,127,247,1) 100%);
 }
+
 .img-message-send{
     position: absolute;
     right: 0;
     background: linear-gradient(90deg, rgb(69, 114, 211) 10%, rgb(38, 0, 255) 53%, rgba(64,141,198,1) 88%, rgba(18,127,247,1) 100%);
 }
+
 .img-message::after, .img-message-send::after{
     content: 'J';
     color: #FFF;
     font-size: 1.5em;
     margin: 0.5em;
 }
+
 .img-message-send::after{
     content: 'I';
     padding: 0.25em !important;
 }
+
 .lbl-message, .lbl-message-send{
     position: absolute;
     font-weight: bold;
@@ -93,18 +104,22 @@
     top: 8px;
     left: 50px;
 }
+
 .lbl-message-send{
     left: 0;
     right: 50px;
 }
+
 .text-message{
     margin-left: 0.5em;
 }
+
 .text-message-send{
     text-align: right;
     margin-right: 3em;
     width: 235px;
 }
+
 .lbl-date-message, .lbl-date-message-send{
     width: 90%;
     font-size: 0.5em;
@@ -112,14 +127,21 @@
     bottom: 0;
     margin: 0;
 }
+
 .lbl-date-message{
     text-align: left;
     left: 50px;
 }
+
 .lbl-date-message-send{
     padding-top: 0.5em;
     right: 50px;
 }
+
 hr{
     width: 95%;
+}
+
+svg{
+    position: fixed;
 }

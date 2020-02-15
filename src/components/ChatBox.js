@@ -1,59 +1,89 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, useLayoutEffect} from 'react'
 //import EmojiPicker from 'emoji-picker-react';
 import Messages from './Messages'
 import './chatStyle.css'
+import io from "socket.io-client";
 
 const styleFocus = {
     border: 'solid 1px #127ff7'
 }
+
 const styleBlur = {
     border: 'solid 1px #CCC'
 }
-const ChatBox = (props) => {
 
+//declaracion de variable que consume el socket
+const socket = io("http://localhost:1337/");
+
+const ChatBox = (props) => {
+    //declaracion de props
     const {userActual} = props
+    //declaracion de useState
     const [message, setMessage] = useState([])
     const [onFocus, setOnFocus] = useState(false)
     const [messages, setMessages] = useState([])
-    //const [users, setUsers] = useState([])
+    const [users, setUsers] = useState(0)
+    const [date, setDate] = useState('')
+    //declaracion de refs
     const txtMessage = useRef()
     const chatFocused = useRef()
-    const [date, setDate] = useState('')
     const box = useRef()
-
-    useEffect(() => {
-        document.addEventListener('focus', handleFocus)
-
-        return () =>{
-            document.removeEventListener('focus',handleFocus)
-        }
-    },[])
     
-    /*const myCallback = (code) =>{
-        console.log(code)
-        //const emoji = String.fromCodePoint(`0x${code}`)
-        //setMessage(message => [...message, emoji])
-        //txtMessage.value += ` ${emoji}`
-        //console.log(emoji)
-    }*/
+    useEffect(() => {
+        //cargamos los usuarios online
+        socket.on("usersonline", onlineUsers => {
+            console.log('user',onlineUsers)    
+        })
 
+        //cargamos los mensajes que se envien
+        socket.on("sendsmessages", mes => {
+            setMessages(messages => [...messages,{
+                text: mes.text, 
+                userM: mes.userM,
+                date: mes.date
+            }])
+        })
+    },[])
+
+    //evento que envia los mensajes
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(message.text !== ''){
-            setDate(new Date().toDateString())
-            setMessages(messages => [...messages, message])
+        if(message.text.trim() !== ''){
+            socket.emit("message", message)
             setMessage({text: ''})
         }
     }
+    
+    //evento para cambio de estado del mensaje
     const handleChange = (e) => {
         e.preventDefault()
         let message = e.target.value
-        setMessage({text: message, send: true})
+        getDateMessage()
+        setMessage({
+            text: message, 
+            userM: userActual,
+            date: date
+        })
     }
+
+    //evento focus / blur
     const handleFocus = () =>{
         setOnFocus(true)
     }
 
+    //funcion para obtener la fecha actual formateada
+    const getDateMessage = () => {
+        let date2 = new Date()
+        let hour = date2.getDay()
+        let min = date2.getMinutes()
+        let seg = date2.getSeconds()
+        let day = date2.getDay()
+        let month = date2.getMonth() + 1
+        let year = date2.getFullYear()
+        let fecha = `${hour}:${min}:${seg} ${day}-${month}-${year}`
+        setDate(fecha)
+    }
+    
     return(
         <div className="chatBox" ref={box}>
             <div className="dv-user">
@@ -64,16 +94,16 @@ const ChatBox = (props) => {
                 style={onFocus ? styleFocus : styleBlur}
                 ref={chatFocused}
             >
-            {messages.map((message,index) =>
+            {messages.map((msg,index) => (
                 <div key={index}>
                     <Messages
-                        send={message.send}
+                        userMessage={msg.userM}
                         userActual={userActual}
-                        message={message.text}
-                        date={date}
+                        message={msg.text}
+                        date={msg.date}
                     />
                 </div>
-            )
+            ))
             }
             </div>
             <div className="chatInput">
