@@ -7,7 +7,9 @@ const Login = (props) => {
     const usuario = useRef() 
     const handleSubmit = (e) => {
         e.preventDefault()
-        props.handleSubmit(usuario.current.value)
+        const usr = usuario.current.value
+        if(usr.trim() !== '')
+            props.handleSubmit(usr)
     }
     
     return(

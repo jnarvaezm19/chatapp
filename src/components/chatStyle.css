@@ -10,6 +10,7 @@
     right: 10px;
     overflow: auto;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .dv-user{
@@ -34,26 +35,34 @@
     padding: 0;
     overflow: auto;
     overflow-x: hidden;
+    background: rgba(255,255,255,1);
 }
-form{
+form, .chatInput form{
     width: 100%;
+}
+.chatInput form{
+    border: solid 1px #ccc;
 }
 .chatInput{
     width: 100%;
     display: flex;
     padding: 0;
+    background: #fff;
 }
 
 .chatInput input{
     border-radius: 0 0 0 0.5em;
-    border: solid 1px #ccc;
+    border: none;
     margin: 0;
     padding: .5em;
-    width: 80%;
+    width: 72.5%;
+}
+.chatInput input:focus{
+    outline: none;
 }
 
 .chatInput button{
-    border-radius: 0 0 0.5em 0;
+    border-radius: 0 0 0.30em 0;
     border: solid 1px #127ff7;
     right: 0;
     padding: .5em;
@@ -163,4 +172,11 @@ svg{
     visibility: visible !important;
     z-index: 1000;
     position: relative;
+}
+.dv-emoji{
+    position: absolute;
+    bottom: 43px;
+}
+.spn-emoji{
+    cursor: pointer;
 }

@@ -3,6 +3,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import Messages from './Messages'
 import './chatStyle.css'
 import io from "socket.io-client";
+import Emoji from './Emoji';
 
 let styleChat={}
 let styleUser={}
@@ -18,6 +19,7 @@ const ChatBox = (props) => {
     //const [users, setUsers] = useState(0)
     const [date, setDate] = useState('')
     const [hideChat, setHideChat] = useState(false)
+    const [showEmoji, setShowEmoji] = useState(false)
     //declaracion de refs
     const txtMessage = useRef()
     const chatFocused = useRef()
@@ -42,9 +44,11 @@ const ChatBox = (props) => {
     //evento que envia los mensajes
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(message.text.trim() !== ''){
-            socket.emit("message", message)
-            setMessage({text: ''})
+        if (txtMessage.current.value.trim() !== ''){
+            if(message.text.trim() !== ''){
+                socket.emit("message", message)
+                setMessage({text: ''})
+            }
         }
     }
     
@@ -73,11 +77,22 @@ const ChatBox = (props) => {
         setDate(fecha)
     }
 
+    const handleShowEmoji = (e) => {
+        e.preventDefault()
+        setShowEmoji(!showEmoji)
+    }
+
+    const getEmoji = (emoji) => {
+        txtMessage.current.value =+ emoji.unified
+        setShowEmoji(!showEmoji)
+        console.log(emoji)
+    }
+
     const handleHideChat = () => {
         setHideChat(!hideChat)
         if(hideChat){
             styleChat = {
-                visibility: 'visible'
+                visibility: 'visible',
             }
             styleUser={
                 transition: 'all 1s',
@@ -96,7 +111,6 @@ const ChatBox = (props) => {
                 cursor: 'pointer'
             }
         }
-        console.log(hideChat)
     }
 
     return(
@@ -144,6 +158,20 @@ const ChatBox = (props) => {
                             ref={txtMessage}
                             placeholder='Type your message'
                         />
+                        <span 
+                            className="spn-emoji"
+                            onClick={handleShowEmoji}
+                        >
+                            😚
+                        </span>
+                        {
+                            showEmoji &&
+                            <div className="dv-emoji">
+                                <Emoji
+                                    getEmoji={getEmoji}
+                                />
+                            </div>
+                        }
                         <button type='submit'>
                             Send
                         </button>
